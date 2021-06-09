@@ -1,3 +1,5 @@
+# install wheel first
+
 sklearn
 numpy
 pandas
@@ -9,4 +11,6 @@ jupyter notebook
 pillow
 seaborn
 spacy
-cs50
+jupyter
+notebook
+requests
