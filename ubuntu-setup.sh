@@ -33,3 +33,6 @@ PIP_LIST='pandas numpy networkx sklearn spacy flask requests plotly jupyter note
 pip install wheel # make sure wheel is installed
 pip install $PIP_LIST
 echo 'PIP modules installed'
+
+echo 'Post-install finished'
+echo 'If Ubuntu is being dual booted with Windows, but not added to Grub, do not forget to set time to local in order to sync time in both systems'
