@@ -7,7 +7,7 @@ echo '-------- Post-install script Ubuntu --------'
 
 echo 'Setting aliases'
 echo 'Setting alias rm=rm -i'
-alias rm=rm -i
+alias rm='rm -i'
 
 # set linux time to local if dual booting Windows
 if (awk -F\' '/menuentry / {print $2}' /boot/grub/grub.cfg  | grep 'Windows Boot Manager'); then 
