@@ -29,7 +29,7 @@ echo 'Snap packages installed'
 
 # install python modules
 echo 'Installing PIP modules'
-PIP_LIST='pandas numpy networkx sklearn spacy flask requests plotly jupyter notebook'
+PIP_LIST='pandas numpy networkx sklearn spacy flask requests plotly jupyter notebook pillow seaborn'
 pip install wheel # make sure wheel is installed
 pip install $PIP_LIST
 echo 'PIP modules installed'
