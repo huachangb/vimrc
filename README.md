@@ -1,4 +1,4 @@
 # Post-installation files
 
 # Ubuntu
-Work in progress, not fully tested yet
+Simple script to automatically install standard packages and python modules
