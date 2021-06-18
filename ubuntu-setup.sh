@@ -36,6 +36,7 @@ echo 'Installing PIP modules'
 if ! pip list | grep wheel; then
 	echo "Installing wheel"
 	pip install wheel
+fi
 
 # download and install list of modules
 wget https://raw.githubusercontent.com/huachangb/setup-pc/main/python_modules.txt
