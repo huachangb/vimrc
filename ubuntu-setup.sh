@@ -18,9 +18,11 @@ fi
 
 # apt install programs
 echo 'Installing APT packages'
-APT_INSTALL_LIST='tree vim python3-pip git nodejs npm'
-sudo apt install $APT_INSTALL_LIST -y
-echo 'APT packages installed'
+wget https://raw.githubusercontent.com/huachangb/setup-pc/main/apt_packages.txt
+xargs -a apt_packages.txt sudo apt install
+echo 'Apt packages installed'
+echo 'Removing apt packages text file'
+rm -f apt_packages.txt
 
 # install snap packages
 echo 'Installing Snap packages'
@@ -29,10 +31,14 @@ echo 'Snap packages installed'
 
 # install python modules
 echo 'Installing PIP modules'
-PIP_LIST='pandas numpy networkx sklearn spacy flask requests plotly jupyter notebook pillow seaborn'
 pip install wheel # make sure wheel is installed
-pip install $PIP_LIST
+
+# download and install list of modules
+wget https://raw.githubusercontent.com/huachangb/setup-pc/main/python_modules.txt
+pip install -r python_modules.txt
 echo 'PIP modules installed'
+echo 'Removing modules text file'
+rm -f python_modules.txt
 
 echo 'Post-install finished'
 echo 'If Ubuntu is being dual booted with Windows, but not added to Grub, do not forget to set time to local in order to sync time in both systems'
