@@ -1,0 +1,12 @@
+pandas
+numpy
+networkx
+sklearn
+spacy
+flask
+requests
+plotly
+jupyter
+notebook
+pillow
+seaborn

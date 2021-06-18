@@ -1,0 +1,6 @@
+tree
+vim
+python3-pip
+git
+nodejs
+npm
