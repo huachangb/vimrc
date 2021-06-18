@@ -31,7 +31,11 @@ echo 'Snap packages installed'
 
 # install python modules
 echo 'Installing PIP modules'
-pip install wheel # make sure wheel is installed
+
+# make sure wheel is installed for faster pip installs
+if ! pip list | grep wheel; then
+	echo "Installing wheel"
+	pip install wheel
 
 # download and install list of modules
 wget https://raw.githubusercontent.com/huachangb/setup-pc/main/python_modules.txt
