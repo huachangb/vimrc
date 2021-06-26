@@ -9,12 +9,21 @@ echo 'Setting aliases'
 echo 'Setting alias rm=rm -i'
 alias rm='rm -i'
 
+echo 'Updating packages'
+sudo apt install && sudo apt upgrade
+
+# sudo  update-grub
+
 # set linux time to local if dual booting Windows
 if (awk -F\' '/menuentry / {print $2}' /boot/grub/grub.cfg  | grep 'Windows Boot Manager'); then 
     echo "Windows Boot Manager found"
     echo "Setting linux time to local"
     timedatectl set-local-rtc 1
 fi
+
+# codecs for mp* etc
+# echo 'Installing codecs'
+# sudo apt install ubuntu-restricted-extras
 
 # apt install programs
 echo 'Installing APT packages'
