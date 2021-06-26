@@ -10,11 +10,12 @@ echo 'Setting alias rm=rm -i'
 alias rm='rm -i'
 
 echo 'Updating packages'
-sudo apt install && sudo apt upgrade
-
-# sudo  update-grub
+sudo apt install
+sudo apt upgrade
 
 # set linux time to local if dual booting Windows
+sudo  update-grub
+
 if (awk -F\' '/menuentry / {print $2}' /boot/grub/grub.cfg  | grep 'Windows Boot Manager'); then 
     echo "Windows Boot Manager found"
     echo "Setting linux time to local"
@@ -22,8 +23,8 @@ if (awk -F\' '/menuentry / {print $2}' /boot/grub/grub.cfg  | grep 'Windows Boot
 fi
 
 # codecs for mp* etc
-# echo 'Installing codecs'
-# sudo apt install ubuntu-restricted-extras
+echo 'Installing codecs'
+sudo apt install ubuntu-restricted-extras
 
 # apt install programs
 echo 'Installing APT packages'
@@ -53,6 +54,8 @@ pip install -r python_modules.txt
 echo 'PIP modules installed'
 echo 'Removing modules text file'
 rm -f python_modules.txt
+
+sudo apt autoremove
 
 echo 'Post-install finished'
 echo 'If Ubuntu is being dual booted with Windows, but not added to Grub, do not forget to set time to local in order to sync time in both systems'
