@@ -4,58 +4,81 @@
 #
 
 echo '-------- Post-install script Ubuntu --------'
+printf "Welcome\n\nThis is a post-install configuration script for Ubuntu 20.04\n"
+echo ""
 
-echo 'Setting aliases'
-echo 'Setting alias rm=rm -i'
-alias rm='rm -i'
+read -r -p "Are you dualbooting Windows?[y/n] " response
+case "$response" in
+	[yY][eE][sS]|[yY])
+	     	echo "Set RTC time to local to prevent desyncing time with Windows\n"
+		timedatectl set-local-rtc 1
+		;;
+	*)
+esac
+echo ""
 
-echo 'Updating packages'
-sudo apt install
-sudo apt upgrade
+echoThis() {
+    # prints removeable chars to terminal
+    echo -ne "Downloading and installing $1... \r"
+}
 
-# set linux time to local if dual booting Windows
-sudo  update-grub
+GREEN="\033[0;32m"
+NOCOLOR="\033[0m"
 
-if (awk -F\' '/menuentry / {print $2}' /boot/grub/grub.cfg  | grep 'Windows Boot Manager'); then 
-    echo "Windows Boot Manager found"
-    echo "Setting linux time to local"
-    timedatectl set-local-rtc 1
-fi
+updateEchoThis() {
+    # clears previous line and echoes message
+    echo -ne "\e[K"
+    echo -ne $GREEN
+    echo -e "- Installed $1$NOCOLOR"
+}
 
-# codecs for mp* etc
-echo 'Installing codecs'
-sudo apt install ubuntu-restricted-extras
+echo "Tasks:"
+# update grub silently
+{
+    sudo update-grub
+} &> /dev/null
 
-# apt install programs
-echo 'Installing APT packages'
-wget https://raw.githubusercontent.com/huachangb/setup-pc/main/apt_packages.txt
-xargs -a apt_packages.txt sudo apt install
-echo 'Apt packages installed'
-echo 'Removing apt packages text file'
-rm -f apt_packages.txt
+UPDATE="system and package updates"
+echoThis "$UPDATE"
+{
+    sudo apt -y update
+    sudo apt -y upgrade
+} &> /dev/null
+updateEchoThis "$UPDATE"
 
-# install snap packages
-echo 'Installing Snap packages'
-sudo snap install --classic code
-echo 'Snap packages installed'
+APT="apt packages"
+echoThis "$APT"
+{
+    wget https://raw.githubusercontent.com/huachangb/setup-pc/main/apt_packages.txt
+    xargs -a apt_packages.txt sudo apt install
+    rm -f apt_packages.txt
+} &> /dev/null
+updateEchoThis "$APT"
 
-# install python modules
-echo 'Installing PIP modules'
+PIP_MODULES="python modules"
+echoThis "$PIP_MODULES"
+{
+    # make sure wheel is installed for faster pip installs
+    if ! pip list | grep wheel; then
+        pip install wheel
+    fi	
 
-# make sure wheel is installed for faster pip installs
-if ! pip list | grep wheel; then
-	echo "Installing wheel"
-	pip install wheel
-fi
+    download and install list of modules
+    wget https://raw.githubusercontent.com/huachangb/setup-pc/main/python_modules.txt
+    pip install -r python_modules.txt
+    rm -f python_modules.txt
+} &> /dev/null
+updateEchoThis "$PIP_MODULES"
 
-# download and install list of modules
-wget https://raw.githubusercontent.com/huachangb/setup-pc/main/python_modules.txt
-pip install -r python_modules.txt
-echo 'PIP modules installed'
-echo 'Removing modules text file'
-rm -f python_modules.txt
+SNAP_PACKAGES="snap packages"
+echoThis "$SNAP_PACKAGES"
+{
+    sudo snap install --classic code
+} &> /dev/null
+updateEchoThis "$SNAP_PACKAGES"
 
-sudo apt autoremove
-
-echo 'Post-install finished'
-echo 'If Ubuntu is being dual booted with Windows, but not added to Grub, do not forget to set time to local in order to sync time in both systems'
+echo ""
+echo "-------- Post-install script Ubuntu finished --------"
+echo "Checklist"
+echo "- Check if RTC time is set to local to sync time when dual booting"
+echo "- Install VPN, Anaconda, Discord, Chrome and ubuntu set-up from your university/company"
