@@ -63,7 +63,7 @@ echoThis "$PIP_MODULES"
         pip install wheel
     fi	
 
-    download and install list of modules
+    # download and install list of modules
     wget https://raw.githubusercontent.com/huachangb/setup-pc/main/python_modules.txt
     pip install -r python_modules.txt
     rm -f python_modules.txt
