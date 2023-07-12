@@ -1,10 +1,14 @@
 # Post-installation files
-Made public for faster access for post-install actions, **not tested** yet
+Before doing anything else, update current software using ```sudo apt update && sudo apt upgrade```
 
-# Ubuntu
-Simple script to automate installing standard packages and python modules
-```bash
-wget https://raw.githubusercontent.com/huachangb/setup-pc/main/ubuntu-setup.sh
-chmod +X ubuntu-setup.sh
-sudo ./ubuntu-setup.sh
-```
+### Configure Grub
+```sudo update-grub```
+
+### Get audio/video codecs
+```sudo apt install ubuntu-restricted-extras```
+
+### Fix time when dual booting Windows
+```timedatectl set-local-rtc 1```
+
+### Python
+Install Anaconda to separate system version from user version.
