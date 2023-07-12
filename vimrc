@@ -1,6 +1,6 @@
 runtime! debian.vim
 
-" enable syntax highlighting
+" syntax highlighting
 if has("syntax")
   syntax on
 endif
@@ -26,12 +26,11 @@ set softtabstop=4
 set expandtab
 set showmatch
 
-"relative numbering in normal mode and absolute in insert mode
+" relative numbering in normal mode and absolute numbering in insert mode
 set number relativenumber
 autocmd InsertEnter * :set norelativenumber
 autocmd InsertLeave * :set relativenumber
 
-" Source a global configuration file if available
 if filereadable("/etc/vim/vimrc.local")
   source /etc/vim/vimrc.local
 endif
