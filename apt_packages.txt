@@ -1,5 +1,0 @@
-tree
-vim
-python3-pip
-git
-ubuntu-restricted-extras
