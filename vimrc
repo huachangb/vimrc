@@ -28,8 +28,8 @@ set showmatch
 
 " relative numbering in normal mode and absolute numbering in insert mode
 set number relativenumber
-autocmd InsertEnter * :set norelativenumber
-autocmd InsertLeave * :set relativenumber
+autocmd InsertEnter * :set relativenumber
+autocmd InsertLeave * :set norelativenumber
 
 if filereadable("/etc/vim/vimrc.local")
   source /etc/vim/vimrc.local
